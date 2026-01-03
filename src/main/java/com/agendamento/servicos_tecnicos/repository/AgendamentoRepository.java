@@ -12,6 +12,10 @@ import java.util.List;
 
 @Repository
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
+
+    List<Agendamento> findByUsuarioId(Long usuarioId);
+    List<Agendamento> findByStatus(Status status);
+    List<Agendamento> findByUsuarioIdAndStatus(Long usuarioId, Status status);
     List<Agendamento> findByDataHoraBetween(LocalDateTime inicio, LocalDateTime fim);
     List<Agendamento> findByDataHoraAfter(LocalDateTime dataHora);
     List<Agendamento> findByDataHoraBefore(LocalDateTime dataHora);
