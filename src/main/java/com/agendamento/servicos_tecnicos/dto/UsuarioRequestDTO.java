@@ -23,8 +23,8 @@ public class UsuarioRequestDTO {
 
     @NotNull(message = "Tipo de usuário é obrigatório")
     @Pattern(
-            regexp = "CLIENTE|TECNICO|ADMIN",
-            message = "Tipo deve ser CLIENTE, TECNICO ou ADMIN"
+            regexp = "CLIENTE|CABELEREIRO|ADMIN",
+            message = "Tipo deve ser CLIENTE, CABELEREIRO ou ADMIN"
     )
     private String role;
 }

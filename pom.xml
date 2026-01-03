@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.agendamento</groupId>
-	<artifactId>servicos-tecnicos</artifactId>
+	<artifactId>salao-beleza-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>servicos-tecnicos</name>
-	<description>agenda-de-servicos</description>
+	<name>salao-beleza-api</name>
+	<description>api-de-agendamento-para-salao-de-beleza</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -11,6 +11,11 @@ public interface ServicoRepository extends JpaRepository<Servico, Long> {
     List<Servico> findByDuracaoLessThanEqual(Integer duracao);
     List<Servico> findAllByOrderByDuracaoAsc();
     List<Servico> findAllByOrderByNomeAsc();
-      long countByDuracao(Integer duracao);
+    long countByDuracao(Integer duracao);
 
+    // Usado por ServicoService para validação de nome único
+    boolean existsByNome(String nome);
+
+    // Usado por ServicoService para busca por nome (contém, case-insensitive)
+    List<Servico> findByNomeContainingIgnoreCase(String nome);
 }

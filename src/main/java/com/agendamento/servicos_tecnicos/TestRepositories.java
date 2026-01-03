@@ -22,16 +22,24 @@ public class TestRepositories implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("\n===== TESTANDO REPOSITORIES =====\n");
 
-        // 1. Criar e salvar usuário
-        Usuario tecnico = Usuario.builder()
-                .nome("João Silva")
-                .email("joao@email.com")
-                .senha("123456")
-                .role(Usuario.Role.TECNICO)
-                .build();
+        // 1. Criar e salvar usuário (cabeleireiro)
+        Usuario cabeleireiro = usuarioRepository.findByEmail("joao@email.com")
+                .orElseGet(() -> {
+                    Usuario novo = Usuario.builder()
+                            .nome("João Silva")
+                            .email("joao@email.com")
+                            .senha("123456")
+                            .role(Usuario.Role.CABELEREIRO)
+                            .build();
+                    return usuarioRepository.save(novo);
+                });
 
-        tecnico = usuarioRepository.save(tecnico);
-        System.out.println("✅ Técnico criado: ID = " + tecnico.getId());
+        if (cabeleireiro.getRole() != Usuario.Role.CABELEREIRO) {
+            cabeleireiro.setRole(Usuario.Role.CABELEREIRO);
+            cabeleireiro = usuarioRepository.save(cabeleireiro);
+        }
+
+        System.out.println("✅ Cabeleireiro: ID = " + cabeleireiro.getId());
 
         // 2. Criar e salvar serviço
         Servico servico = Servico.builder()
@@ -46,7 +54,7 @@ public class TestRepositories implements CommandLineRunner {
         // 3. Criar e salvar agendamento
         Agendamento agendamento = Agendamento.builder()
                 .dataHora(LocalDateTime.now().plusDays(1))
-                .usuario(tecnico)
+                .usuario(cabeleireiro)
                 .servico(servico)
                 .status(Agendamento.Status.AGENDADO)
                 .build();

@@ -17,6 +17,28 @@ services:
     networks:
       - agendamento-network
 
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: salao-beleza-api
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/agendamento_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_PORT: 8080
+      SPRING_SECURITY_USER_NAME: admin
+      SPRING_SECURITY_USER_PASSWORD: admin123
+      SPRING_SECURITY_USER_ROLES: ADMIN
+    ports:
+      - "8081:8080"
+    networks:
+      - agendamento-network
+
 volumes:
   postgres_data:
     driver: local

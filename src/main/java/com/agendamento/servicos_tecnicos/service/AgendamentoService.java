@@ -39,7 +39,7 @@ public class AgendamentoService {
 
         Usuario usuario = usuarioService.buscarEntidadePorId(dto.getUsuarioId());
 
-        if (usuario.getRole() != Usuario.Role.TECNICO) {
+        if (usuario.getRole() != Usuario.Role.CABELEREIRO) {
             throw new RuntimeException("Apenas técnicos podem ter agendamentos. " +
                     "Usuário " + usuario.getNome() + " é " + usuario.getRole());
         }
@@ -198,3 +198,4 @@ public class AgendamentoService {
                 .status(agendamento.getStatus().name())
                 .build();
     }
+}

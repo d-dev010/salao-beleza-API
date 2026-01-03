@@ -30,7 +30,7 @@ public class Usuario {
 
     public enum Role {
         CLIENTE,
-        TECNICO,
+        CABELEREIRO,
         ADMIN
     }
 }
