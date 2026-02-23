@@ -1,7 +1,8 @@
 package com.agendamento.servicos_tecnicos.controller;
 
-import com.agendamento.servicos_tecnicos.dto.ServicoDTO;
-import com.agendamento.servicos_tecnicos.service.ServicoService;
+import com.agendamento.servicos_tecnicos.dto.BeautyServiceDTO;
+import com.agendamento.servicos_tecnicos.dto.BeautyServiceCreateDTO;
+import com.agendamento.servicos_tecnicos.service.BeautyServiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,46 +12,49 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/servicos")
+@RequestMapping("/api/v1/beauty-services")
 @RequiredArgsConstructor
-public class ServicoController {
+public class BeautyServiceController {
 
-    private final ServicoService servicoService;
+    private final BeautyServiceService beautyServiceService;
 
     @PostMapping
-    public ResponseEntity<ServicoDTO> criar(@Valid @RequestBody ServicoDTO dto) {
-        ServicoDTO criado = servicoService.criar(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(criado);
+    public ResponseEntity<BeautyServiceDTO> create(@Valid @RequestBody BeautyServiceCreateDTO dto) {
+        BeautyServiceDTO created = beautyServiceService.create(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ServicoDTO> buscarPorId(@PathVariable Long id) {
-        ServicoDTO servico = servicoService.buscarPorId(id);
-        return ResponseEntity.ok(servico);
+    public ResponseEntity<BeautyServiceDTO> getById(@PathVariable Long id) {
+        BeautyServiceDTO service = beautyServiceService.getById(id);
+        return ResponseEntity.ok(service);
     }
 
     @GetMapping
-    public ResponseEntity<List<ServicoDTO>> listarTodos() {
-        List<ServicoDTO> servicos = servicoService.listarTodos();
-        return ResponseEntity.ok(servicos);
-    }
-
-    @GetMapping("/buscar")
-    public ResponseEntity<List<ServicoDTO>> buscarPorNome(@RequestParam("nome") String nome) {
-        List<ServicoDTO> servicos = servicoService.buscarPorNome(nome);
-        return ResponseEntity.ok(servicos);
+    public ResponseEntity<List<BeautyServiceDTO>> list(@RequestParam(value = "category", required = false) String category,
+                                                        @RequestParam(value = "priceMin", required = false) Double priceMin,
+                                                        @RequestParam(value = "page", defaultValue = "1") int page,
+                                                        @RequestParam(value = "limit", defaultValue = "20") int limit) {
+        List<BeautyServiceDTO> services = beautyServiceService.list(category, priceMin, page, limit);
+        return ResponseEntity.ok(services);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ServicoDTO> atualizar(@PathVariable Long id,
-                                                @Valid @RequestBody ServicoDTO dto) {
-        ServicoDTO atualizado = servicoService.atualizar(id, dto);
-        return ResponseEntity.ok(atualizado);
+    public ResponseEntity<BeautyServiceDTO> update(@PathVariable Long id,
+                                                   @Valid @RequestBody BeautyServiceCreateDTO dto) {
+        BeautyServiceDTO updated = beautyServiceService.update(id, dto);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable Long id) {
-        servicoService.deletar(id);
+    public void delete(@PathVariable Long id) {
+        beautyServiceService.delete(id);
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getCategories() {
+        List<String> categories = beautyServiceService.getCategories();
+        return ResponseEntity.ok(categories);
     }
 }
