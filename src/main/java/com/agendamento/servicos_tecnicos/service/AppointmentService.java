@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class AgendamentoService {
+public class AppointmentService {
 
     private final AgendamentoRepository agendamentoRepository;
     private final UsuarioService usuarioService;
@@ -76,6 +76,7 @@ public class AgendamentoService {
 
         Agendamento agendamento = Agendamento.builder()
                 .dataHora(dataHora)
+                .nomeCliente(dto.getNomeCliente())
                 .usuario(usuario)
                 .servico(servico)
                 .status(Agendamento.Status.AGENDADO)  // Status inicial
@@ -194,6 +195,7 @@ public class AgendamentoService {
                 .id(agendamento.getId())
                 .dataHora(agendamento.getDataHora())
                 .usuarioId(agendamento.getUsuario().getId())
+                .nomeCliente(agendamento.getNomeCliente())
                 .nomeUsuario(agendamento.getUsuario().getNome())
                 .emailUsuario(agendamento.getUsuario().getEmail())
                 .servicoId(agendamento.getServico().getId())
