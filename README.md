@@ -1,4 +1,4 @@
-# Salão Beleza API (Serviços Técnicos)
+# Salão Beleza API (Serviços)
 
 API REST para agendamento de serviços em um salão de beleza.
 
